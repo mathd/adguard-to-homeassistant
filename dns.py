@@ -12,6 +12,7 @@ ADGUARD_USERNAME = os.getenv("ADGUARD_USERNAME")
 ADGUARD_PASSWORD = os.getenv("ADGUARD_PASSWORD")
 HOME_ASSISTANT_URL = os.getenv("HOME_ASSISTANT_URL")
 HOME_ASSISTANT_TOKEN = os.getenv("HOME_ASSISTANT_TOKEN")
+QTY_FOR_IN_USE = int(os.getenv("QTY_FOR_IN_USE", 50))
 
 # Mapping IPs to friendly names
 IP_MAPPING = {
@@ -76,7 +77,7 @@ def publish_to_home_assistant(ip_query_counts, ip_mapping):
 
     for ip, count in ip_query_counts.items():
         sensor_name = ip_mapping[ip]
-        is_in_use = count > 10  # Decision logic
+        is_in_use = count > QTY_FOR_IN_USE  # Decision logic
 
         # Push query count
         url_count = f"{HOME_ASSISTANT_URL}/{sensor_name}"
